@@ -11,6 +11,7 @@ function UseMemo() {
     const [number, setNumber] = useState(0);
     const [dark, setDark] = useState(false);
     const doubleNumber = useMemo(() => slowFunction(number), [number]);
+    // use useMemo to prevent re-initialising on each render
     const themeStyles = useMemo(() => {
         return {
             backgroundColor: dark ? "black" : "white",
@@ -18,6 +19,7 @@ function UseMemo() {
         };
     }, [dark]);
 
+    // example to show that themeStyles is re-initialised on each render
     useEffect(() => {
         console.log("Theme changed");
     }, [themeStyles]);
