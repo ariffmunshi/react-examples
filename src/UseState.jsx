@@ -1,11 +1,13 @@
 import { useState } from "react";
 function UseState() {
     const [count, setCount] = useState(0);
+
+    // Pass previous value as callback if using previous value
     function decrementCount() {
-        setCount(count - 1);
+        setCount((prevCount) => prevCount - 1);
     }
     function incrementCount() {
-        setCount(count + 1);
+        setCount((prevCount) => prevCount + 1);
     }
     return (
         <>
