@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 function UseState() {
     const [resource, setResource] = useState("posts");
 
-    // useEffect running on every render
+    // useEffect running when resource changes
     useEffect(() => {
         console.log("useEffect");
-    });
+    }, [resource]);
     return (
         <>
             <div>
