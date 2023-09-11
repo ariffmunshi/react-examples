@@ -6,9 +6,14 @@ function UseState() {
 
     // useEffect running when resource changes
     useEffect(() => {
+        // set up code when effect triggered
         fetch("https://jsonplaceholder.typicode.com/" + resource)
             .then((response) => response.json())
             .then((json) => setItems(json));
+        // code to run after every render or component unmounting
+        return () => {
+            console.log("clean up");
+        };
     }, [resource]);
     return (
         <>
