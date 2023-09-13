@@ -25,7 +25,6 @@ function UseReducerExample() {
         dispatch({ type: ACTIONS.ADD_TODO, payload: { name } });
         setName("");
     }
-    console.log(todos);
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -35,7 +34,18 @@ function UseReducerExample() {
                     onChange={(e) => setName(e.target.value)}
                 />
             </form>
+            {todos.map((todo) => (
+                <Todo key={todo.id} todo={todo} />
+            ))}
         </>
+    );
+}
+
+function Todo({ todo }) {
+    return (
+        <span style={{ color: todo.completed ? "grey" : "black" }}>
+            {todo.name}
+        </span>
     );
 }
 
