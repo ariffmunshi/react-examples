@@ -2,12 +2,21 @@ import { useReducer, useState } from "react";
 
 const ACTIONS = {
     ADD_TODO: "add-todo",
+    TOGGLE_TODO: "toggle-todo",
 };
 
 function reducer(todos, action) {
     switch (action.type) {
         case ACTIONS.ADD_TODO: {
             return [...todos, newTodo(action.payload.name)];
+        }
+        case ACTIONS.TOGGLE_TODO: {
+            return todos.map((todo) => {
+                if (todo.id === action.payload.id) {
+                    return { ...todo, completed: !todo.completed };
+                }
+                return todo;
+            });
         }
     }
 }
@@ -35,17 +44,29 @@ function UseReducerExample() {
                 />
             </form>
             {todos.map((todo) => (
-                <Todo key={todo.id} todo={todo} />
+                <Todo key={todo.id} todo={todo} dispatch={dispatch} />
             ))}
         </>
     );
 }
 
-function Todo({ todo }) {
+function Todo({ todo, dispatch }) {
     return (
-        <span style={{ color: todo.completed ? "grey" : "black" }}>
-            {todo.name}
-        </span>
+        <div>
+            <span style={{ color: todo.completed ? "grey" : "black" }}>
+                {todo.name}
+            </span>
+            <button
+                onClick={() =>
+                    dispatch({
+                        type: ACTIONS.TOGGLE_TODO,
+                        payload: { id: todo.id },
+                    })
+                }
+            >
+                Toggle
+            </button>
+        </div>
     );
 }
 
