@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import UseReducerExample from "./UseReducerExample";
 
 const ACTION = {
     INCREMENT: "increment",
@@ -32,6 +33,7 @@ function UseReducer() {
             <button onClick={decrement}>-</button>
             {state.count}
             <button onClick={increment}>+</button>
+            <UseReducerExample />
         </>
     );
 }
