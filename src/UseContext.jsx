@@ -1,31 +1,28 @@
-import { createContext, useContext, useState } from "react";
-
-const ThemeContext = createContext();
-
+import { ThemeProvider, useTheme, useThemeUpdate } from "./ThemeContext";
 function UseContext() {
-    const [darkTheme, setDarkTheme] = useState(false);
-
-    function toggleTheme() {
-        setDarkTheme((prevDarkTheme) => !prevDarkTheme);
-    }
     return (
         <>
-            <ThemeContext.Provider value={darkTheme}>
-                <button onClick={toggleTheme}>Toggle Theme</button>
+            <ThemeProvider>
                 <FunctionalContextComponent />
-            </ThemeContext.Provider>
+            </ThemeProvider>
         </>
     );
 }
 
 function FunctionalContextComponent() {
-    const darkTheme = useContext(ThemeContext);
+    const darkTheme = useTheme();
+    const toggleTheme = useThemeUpdate();
     const themeStyles = {
         backgroundColor: darkTheme ? "black" : "white",
         color: darkTheme ? "white" : "black",
         padding: "1rem 2rem",
     };
-    return <div style={themeStyles}>UseContext</div>;
+    return (
+        <>
+            <button onClick={toggleTheme}>Toggle Theme</button>
+            <div style={themeStyles}>UseContext</div>
+        </>
+    );
 }
 
 export default UseContext;
